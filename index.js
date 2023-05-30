@@ -230,6 +230,7 @@ module.exports = function jwa(algorithm) {
     rs: createKeySigner,
     ps: createPSSKeySigner,
     es: createECDSASigner,
+    bp: createECDSASigner,
     none: createNoneSigner,
   }
   var verifierFactories = {
@@ -237,9 +238,10 @@ module.exports = function jwa(algorithm) {
     rs: createKeyVerifier,
     ps: createPSSKeyVerifier,
     es: createECDSAVerifer,
+    bp: createECDSAVerifer,
     none: createNoneVerifier,
   }
-  var match = algorithm.match(/^(RS|PS|ES|HS)(256|384|512)$|^(none)$/);
+  var match = algorithm.match(/^(RS|PS|ES|HS|BP)(256|384|512)(R1)$|^(none)$/);
   if (!match)
     throw typeError(MSG_INVALID_ALGORITHM, algorithm);
   var algo = (match[1] || match[3]).toLowerCase();
